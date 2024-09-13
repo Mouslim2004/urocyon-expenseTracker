@@ -37,7 +37,7 @@ app.post('/login', async (req,res) => {
   try{
     const check = await User.findOne({email: req.body.email})
     if(check.password === req.body.password){
-      res.render('addExpense')
+      res.render('addExpense', {check: check.name})
     } else {
       return res.redirect('/login')
     }
