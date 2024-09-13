@@ -14,6 +14,8 @@ db.once('open', () => {
   console.log('Database connected successfully!')
 })
 
+const User = require('./model/User')
+
 app.set('view engine', 'ejs')
 
 app.use(express.static('public'))
@@ -28,6 +30,35 @@ app.get('/',(req,res) => {
 
 app.get('/login',(req,res) => {
   res.render('login')
+})
+
+
+app.post('/login', async (req,res) => {
+  try{
+    const check = await User.findOne({email: req.body.email})
+    if(check.password === req.body.password){
+      res.render('addExpense')
+    } else {
+      return res.redirect('/login')
+    }
+  } catch {
+    return res.redirect('/login')
+  }
+})
+
+app.post('/signup',async (req,res) => {
+  let data = {
+    name: req.body.name,
+    email: req.body.email,
+    password: req.body.password
+  }
+  if(data.name == "" || data.email == "" || data.password == ""){
+      //req.flash('msg','Please fill the form')
+      res.redirect('/signup')
+  } else {
+     await User.insertMany([data])
+     res.render('login')
+  }
 })
 
 app.get('/signup',(req,res) => {
