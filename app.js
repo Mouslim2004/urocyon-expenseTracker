@@ -32,7 +32,6 @@ app.get('/login',(req,res) => {
   res.render('login')
 })
 
-
 app.post('/login', async (req,res) => {
   try{
     const check = await User.findOne({email: req.body.email})
@@ -60,6 +59,7 @@ app.post('/signup',async (req,res) => {
      res.render('login')
   }
 })
+
 
 app.get('/signup',(req,res) => {
   res.render('signup')
