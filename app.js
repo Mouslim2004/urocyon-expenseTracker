@@ -69,6 +69,26 @@ app.get('/add-expense',(req,res) => {
   res.render('addExpense')
 })
 
+// app.post('/add-expense/:name',async (req,res) => {
+  
+//   try{
+//     const nameExpense = await User.findOne({name: req.params.name})
+//     let dataCheck = {
+//       description: req.body.description,
+//       amount: req.body.amount
+//     }
+//     if(dataCheck.description == "" || dataCheck.amount == ""){
+//       res.redirect('/add-expense')
+//     } else {
+//       if(nameExpense){
+
+//       }
+//     }
+//   } catch {
+
+//   }
+// })
+
 app.get('/homepage',(req,res) => {
   res.render('homepage')
 })
