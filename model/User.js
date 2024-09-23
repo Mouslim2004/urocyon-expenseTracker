@@ -11,12 +11,12 @@ const UserSchema = new schema({
   password: {
     type: String
   },
-  description: {
-    type: String
-  },
-  amount: {
-    type: Number
-  }
+  expenses: [
+    {
+      description: {type: String},
+      amount: {type: Number}
+    }
+  ]
 }, {timestamps: true})
 
 const User = mongoose.model('User', UserSchema)

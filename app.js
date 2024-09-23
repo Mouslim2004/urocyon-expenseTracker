@@ -60,38 +60,56 @@ app.post('/signup',async (req,res) => {
   }
 })
 
-
 app.get('/signup',(req,res) => {
   res.render('signup')
 })
 
-app.get('/add-expense',(req,res) => {
-  res.render('addExpense')
-})
-
-// app.post('/add-expense/:name',async (req,res) => {
-  
-//   try{
-//     const nameExpense = await User.findOne({name: req.params.name})
-//     let dataCheck = {
-//       description: req.body.description,
-//       amount: req.body.amount
+// app.get('/add-expense/:name',async (req,res) => {
+//   try {
+//     const user = await User.findOne({ name: req.params.name });
+//     if (!user) {
+//       return res.redirect('/some-error-page'); // Handle user not found
 //     }
-//     if(dataCheck.description == "" || dataCheck.amount == ""){
-//       res.redirect('/add-expense')
-//     } else {
-//       if(nameExpense){
-
-//       }
-//     }
-//   } catch {
-
+//     res.render('addExpense', { check: user });
+//   } catch (error) {
+//     console.error(error);
+//     res.redirect('/some-error-page'); // Handle error
 //   }
 // })
 
-app.get('/homepage',(req,res) => {
-  res.render('homepage')
+app.post('/add-expense/:name',async (req,res) => {
+  
+  try{
+   
+    const {description, amount} = req.body
+
+    if(!description || !amount){
+     //return res.redirect(`/add-expense/${req.params.name}`)
+     return res.status(400).json({ message: 'Description and amount are required.' });
+    } else {
+      const newUpdate = await User.updateOne(
+        {name: req.params.name},
+        {$push: {expenses : {description, amount}}},
+        {new : true}
+      )
+      if (!newUpdate) {
+        return res.status(404).json({ message: 'User not found.' });
+      }
+      res.status(200).json(newUpdate);
+  
+      const updatedUser = await User.findOne({ name: req.params.name }); // Fetch updated user
+      res.render('homepage', { user: updatedUser });
+    }
+  } catch(error) {
+    console.error(error)
+    //return res.redirect(`/add-expense/${req.params.name}`)
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
 })
+
+// app.get('/homepage',(req,res) => { /${req.params.name}
+//   res.render('homepage')
+// })
 
 const PORT = process.env.PORT || 8080
 
