@@ -9,11 +9,15 @@ $(document).ready(function(){
     });
   })
 
-    // let name = $(".hiname").text()
-
-    // $.ajax({
-    //   type: 'get',
-    //   url: '/add-expense/' + name
-    // });
+  $("#addForm").on("click", () => {
+    let insidebtn = $("#addForm").text()
+    if(insidebtn == "ADD"){
+      $("#addForm").text("CANCEL")
+    } else {
+      $("#addForm").text("ADD")
+    }
+  })
+    
+  
   
 })

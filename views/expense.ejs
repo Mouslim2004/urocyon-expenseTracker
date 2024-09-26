@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Expense</title>
+  <link rel="stylesheet" href="expense.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+</head>
+<body>
+   <div class="container border border-dark w-50 mt-5 p-3 rounded-2">
+     <h1 class="text-center">Expense Tracker</h1>
+     <div class="balance-form d-flex justify-content-between p-2">
+        <div><span style="font-size: 20px;">Balance</span> : <span class="font-weight-bold fs-5"><strong>15000</strong></span></div>
+        <div>
+          <button type="button" class="btn btn-success" id="addForm" data-bs-toggle="collapse" data-bs-target="#addtracker">ADD</button>
+        </div>
+     </div>
+     <div id="addtracker" class="collapse">
+      <form action="" method="post" class="mt-2 border border-dark rounded-2 p-3 m-3">
+         <div class="row mb-2">
+            <div class="col">
+               <input type="text" class="form-control border border-dark p-1" placeholder="Edit description" name="description">
+            </div>
+         </div>
+         <div class="row">
+            <div class="col">
+            <input type="text" class="form-control border border-dark p-1" placeholder="Edit amount" name="amount">
+            </div>
+         </div>
+         <div class="adjust d-flex justify-content-center mt-3">
+           <button type="submit" class="btn btn-outline-success rounded-pill w-25">Add transaction</button>
+         </div>
+      </form>
+      </div>
+      <div class="expense-budget d-flex justify-content-around mb-2">
+         <div class="expense-money border border-dark w-50 me-2 p-2 rounded-2">
+            <div>Expense</div>
+            <span class="expense text-danger fs-5 fw-bold">0</span>
+         </div>
+         <div class="budget-money border border-dark w-50 ms-2 p-2 rounded-2">
+          <div>Budget</div>
+          <span class="budget text-success fs-5 fw-bold">0</span>
+         </div>
+      </div>
+      <div class="transaction-search">
+        <h3>Transactions</h3>
+        <div class="row">
+            <div class="col">
+               <input type="text" class="form-control" placeholder="Search here">
+            </div>
+        </div>
+     </div>
+     <div class="expense-list d-flex flex-column mb-5 mt-3">
+        <div class="alert alert-white border ">
+          <div class="d-flex justify-content-between">
+            <div class="expense-description"><strong>Movie</strong></div>
+            <div class="amount-tracker">10000</div>
+            <div class="expense-action">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
+                <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
+              </svg>
+            
+            </div>
+          </div>
+        </div>
+        <div class="alert alert-white border ">
+          <div class="d-flex justify-content-between">
+            <div class="expense-description"><strong>Movie</strong></div>
+            <div class="amount-tracker">10000</div>
+            <div class="expense-action">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
+                <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
+              </svg>
+            
+            </div>
+          </div>
+        </div>
+        <div class="alert alert-white border ">
+          <div class="d-flex justify-content-between">
+            <div class="expense-description"><strong>Movie</strong></div>
+            <div class="amount-tracker">10000</div>
+            <div class="expense-action">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
+                <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
+              </svg>
+            
+            </div>
+          </div>
+          
+        </div>
+      </div>
+   </div>
+   <script src="index.js"></script>
+</body>
+</html>

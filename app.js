@@ -36,7 +36,7 @@ app.post('/login', async (req,res) => {
   try{
     const check = await User.findOne({email: req.body.email})
     if(check.password === req.body.password){
-      res.render('addExpense', {check: check})
+      res.render('expense', {check: check})
     } else {
       return res.redirect('/login')
     }
@@ -77,39 +77,39 @@ app.get('/signup',(req,res) => {
 //   }
 // })
 
-app.post('/add-expense/:name',async (req,res) => {
+// app.post('/add-expense/:name',async (req,res) => {
   
-  try{
+//   try{
    
-    const {description, amount} = req.body
+//     const {description, amount} = req.body
 
-    if(!description || !amount){
-     //return res.redirect(`/add-expense/${req.params.name}`)
-     return res.status(400).json({ message: 'Description and amount are required.' });
-    } else {
-      const newUpdate = await User.updateOne(
-        {name: req.params.name},
-        {$push: {expenses : {description, amount}}},
-        {new : true}
-      )
-      if (!newUpdate) {
-        return res.status(404).json({ message: 'User not found.' });
-      }
-      res.status(200).json(newUpdate);
+//     if(!description || !amount){
+//      //return res.redirect(`/add-expense/${req.params.name}`)
+//      return res.status(400).json({ message: 'Description and amount are required.' });
+//     } else {
+//       const newUpdate = await User.updateOne(
+//         {name: req.params.name},
+//         {$push: {expenses : {description, amount}}},
+//         {new : true}
+//       )
+//       if (!newUpdate) {
+//         return res.status(404).json({ message: 'User not found.' });
+//       }
+//       res.status(200).json(newUpdate);
   
-      const updatedUser = await User.findOne({ name: req.params.name }); // Fetch updated user
-      res.render('homepage', { user: updatedUser });
-    }
-  } catch(error) {
-    console.error(error)
-    //return res.redirect(`/add-expense/${req.params.name}`)
-    res.status(500).json({ message: 'Internal Server Error' });
-  }
-})
-
-// app.get('/homepage',(req,res) => { /${req.params.name}
-//   res.render('homepage')
+//       const updatedUser = await User.findOne({ name: req.params.name }); // Fetch updated user
+//       res.render('homepage', { user: updatedUser });
+//     }
+//   } catch(error) {
+//     console.error(error)
+//     //return res.redirect(`/add-expense/${req.params.name}`)
+//     res.status(500).json({ message: 'Internal Server Error' });
+//   }
 // })
+
+app.get('/expense',(req,res) => { // ${req.params.name}
+  res.render('expense')
+})
 
 const PORT = process.env.PORT || 8080
 
