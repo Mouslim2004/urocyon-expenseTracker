@@ -41,10 +41,11 @@ app.get('/login',(req,res) => {
 
 app.post('/login', async (req,res) => {
   try{
-    const check = await User.findOne({email: req.body.email})
-    if(check.password === req.body.password){
-      res.render('expense', {check: check})
+    const user = await User.findOne({email: req.body.email})
+    if(user.password === req.body.password){
+      res.render('expense', {user: user})
       //res.redirect('/expense')
+      req.session.userId = user._id; 
     } else {
       return res.redirect('/login')
     }
@@ -79,16 +80,17 @@ app.post('/tracker/:name',async (req,res) => {
     //const {description, amount} = req.body
     let data = {
       description: req.body.description,
-      amount: req.body.amount
+      amount: Number(req.body.amount)
     }
 
-    if(!data.description || !data.amount){
+    if(data.description == "" || data.amount == ""){
      return res.json({ error: 'Description and amount are required.' });
     } else {
-     // const checkName = await User.find({name: req.params.name})
-      //console.log(checkName.name)
-      //checkName.expenses.push({description, amount})
-      //await checkName.save()
+      const userFind = await User.findOneAndUpdate(
+        {name: req.params.name})
+      userFind.expenses.push(data)
+      console.log(userFind)
+      //check.expenses.push({description, amount})
       
       return res.json({ message: "Expense saved successfully!", data: data });
       
