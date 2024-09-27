@@ -45,7 +45,7 @@ app.post('/login', async (req,res) => {
     if(user.password === req.body.password){
       res.render('expense', {user: user})
       //res.redirect('/expense')
-      req.session.userId = user._id; 
+      //req.session.userId = user._id; 
     } else {
       return res.redirect('/login')
     }
@@ -77,23 +77,22 @@ app.get('/signup',(req,res) => {
 app.post('/tracker/:name',async (req,res) => {
    
   try {
-    //const {description, amount} = req.body
     let data = {
       description: req.body.description,
       amount: Number(req.body.amount)
     }
 
-    if(data.description == "" || data.amount == ""){
+    if(data.description == "" || isNaN(data.amount) || data.amount <= 0){
      return res.json({ error: 'Description and amount are required.' });
     } else {
-      const userFind = await User.findOneAndUpdate(
-        {name: req.params.name})
+      const userFind = await User.findOne(
+        {name: req.params.name}
+        //{$push: {expenses: {$each: data}}}
+      )
       userFind.expenses.push(data)
       console.log(userFind)
-      //check.expenses.push({description, amount})
-      
-      return res.json({ message: "Expense saved successfully!", data: data });
-      
+      // await userFind.save()
+      return res.json({ message: "Expense saved successfully!", expenses: userFind.expenses });
     }
   } catch(error){
     return res.json({error: 'Error adding expense'})
