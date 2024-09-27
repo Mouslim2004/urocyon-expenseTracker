@@ -89,9 +89,38 @@ app.post('/tracker/:name',async (req,res) => {
         {name: req.params.name}
         //{$push: {expenses: {$each: data}}}
       )
-      userFind.expenses.push(data)
+      const expensesArray = Array.isArray(req.body.expenses) ? req.body.expenses : [req.body];
+
+    if (expensesArray.length === 0) {
+      return res.json({ error: 'No expenses provided.' });
+    }
+
+    // Loop through the expenses (even if it's just one)
+    expensesArray.forEach(expense => {
+      let data = {
+        description: expense.description || req.body.description,  // Ensure both work
+        amount: Number(expense.amount || req.body.amount)          // Ensure both work
+      };
+
+      if (data.description === "" || isNaN(data.amount) || data.amount <= 0) {
+        return res.json({ error: 'Valid description and amount are required.' });
+      }
+
+      // Push the new expense into the expenses array
+      userFind.expenses.push(data);
+    });
+
+    // Loop through each expense and push it into the user's expenses array
+    // data.forEach(expense => {
+    //   if (expense.description && !isNaN(expense.amount) && expense.amount > 0) {
+    //     userFind.expenses.push({
+
+    //     });
+    //   }
+    // });
+      //userFind.expenses.push(data)
       console.log(userFind)
-      // await userFind.save()
+      await userFind.save()
       return res.json({ message: "Expense saved successfully!", expenses: userFind.expenses });
     }
   } catch(error){
