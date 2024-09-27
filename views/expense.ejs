@@ -11,6 +11,7 @@
 </head>
 <body>
    <div class="container border border-dark w-50 mt-5 p-3 rounded-2">
+    <div class="text-muted">Hello, <span class="nameid"><%= check.name %></span>!</div>
      <h1 class="text-center">Expense Tracker</h1>
      <div class="balance-form d-flex justify-content-between p-2">
         <div><span style="font-size: 20px;">Balance</span> : <span class="font-weight-bold fs-5"><strong>15000</strong></span></div>
@@ -19,19 +20,19 @@
         </div>
      </div>
      <div id="addtracker" class="collapse">
-      <form action="" method="post" class="mt-2 border border-dark rounded-2 p-3 m-3">
+      <form id="tracker" class="mt-2 border border-dark rounded-2 p-3 m-3">
          <div class="row mb-2">
             <div class="col">
-               <input type="text" class="form-control border border-dark p-1" placeholder="Edit description" name="description">
+               <input type="text" class="form-control border border-dark p-1" id="description" placeholder="Edit description" name="description">
             </div>
          </div>
          <div class="row">
             <div class="col">
-            <input type="text" class="form-control border border-dark p-1" placeholder="Edit amount" name="amount">
+            <input type="text" class="form-control border border-dark p-1" id="amount" placeholder="Edit amount" name="amount">
             </div>
          </div>
          <div class="adjust d-flex justify-content-center mt-3">
-           <button type="submit" class="btn btn-outline-success rounded-pill w-25">Add transaction</button>
+           <button  class="btn btn-outline-success rounded-pill w-25 addTrack">Add transaction</button>
          </div>
       </form>
       </div>

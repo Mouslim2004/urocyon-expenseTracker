@@ -2,6 +2,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 const morgan = require('morgan')
+const session = require('express-session')
 const app = express()
 
 mongoose.connect('mongodb://localhost:27017/expense_db')
@@ -24,6 +25,12 @@ app.use(morgan('dev'))
 app.use(bodyParser.urlencoded({extended:false}))
 app.use(bodyParser.json())
 
+app.use(session({
+  secret: 'secretKey',
+  resave: false,
+  saveUninitialized: true
+}))
+
 app.get('/',(req,res) => {
   res.render('onboard')
 })
@@ -37,6 +44,7 @@ app.post('/login', async (req,res) => {
     const check = await User.findOne({email: req.body.email})
     if(check.password === req.body.password){
       res.render('expense', {check: check})
+      //res.redirect('/expense')
     } else {
       return res.redirect('/login')
     }
@@ -64,48 +72,32 @@ app.get('/signup',(req,res) => {
   res.render('signup')
 })
 
-// app.get('/add-expense/:name',async (req,res) => {
-//   try {
-//     const user = await User.findOne({ name: req.params.name });
-//     if (!user) {
-//       return res.redirect('/some-error-page'); // Handle user not found
-//     }
-//     res.render('addExpense', { check: user });
-//   } catch (error) {
-//     console.error(error);
-//     res.redirect('/some-error-page'); // Handle error
-//   }
-// })
 
-// app.post('/add-expense/:name',async (req,res) => {
-  
-//   try{
+app.post('/tracker/:name',async (req,res) => {
    
-//     const {description, amount} = req.body
+  try {
+    //const {description, amount} = req.body
+    let data = {
+      description: req.body.description,
+      amount: req.body.amount
+    }
 
-//     if(!description || !amount){
-//      //return res.redirect(`/add-expense/${req.params.name}`)
-//      return res.status(400).json({ message: 'Description and amount are required.' });
-//     } else {
-//       const newUpdate = await User.updateOne(
-//         {name: req.params.name},
-//         {$push: {expenses : {description, amount}}},
-//         {new : true}
-//       )
-//       if (!newUpdate) {
-//         return res.status(404).json({ message: 'User not found.' });
-//       }
-//       res.status(200).json(newUpdate);
+    if(!data.description || !data.amount){
+     return res.json({ error: 'Description and amount are required.' });
+    } else {
+     // const checkName = await User.find({name: req.params.name})
+      //console.log(checkName.name)
+      //checkName.expenses.push({description, amount})
+      //await checkName.save()
+      
+      return res.json({ message: "Expense saved successfully!", data: data });
+      
+    }
+  } catch(error){
+    return res.json({error: 'Error adding expense'})
+  }
   
-//       const updatedUser = await User.findOne({ name: req.params.name }); // Fetch updated user
-//       res.render('homepage', { user: updatedUser });
-//     }
-//   } catch(error) {
-//     console.error(error)
-//     //return res.redirect(`/add-expense/${req.params.name}`)
-//     res.status(500).json({ message: 'Internal Server Error' });
-//   }
-// })
+})
 
 app.get('/expense',(req,res) => { // ${req.params.name}
   res.render('expense')

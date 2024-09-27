@@ -1,13 +1,28 @@
 $(document).ready(function(){
-  $(".add-btn").on('click', () => {
-    let name = $(".hiname").text()
+
+  $("#tracker").submit(function(e){
+    e.preventDefault()
+
+    let name = $(".nameid").text()
     console.log(name)
 
     $.ajax({
-      type: 'post',
-      url: '/add-expense/' + name
-    });
+      type: 'POST',
+      url: `/tracker/${name}`,
+      data: {
+        description: $('#description').val(),
+        amount: $('#amount').val()
+      },
+      success: function(response){
+        console.log(response)
+      },
+      error: function(err){
+        console.log(error)
+      }
+    })
+
   })
+    
 
   $("#addForm").on("click", () => {
     let insidebtn = $("#addForm").text()
@@ -17,7 +32,6 @@ $(document).ready(function(){
       $("#addForm").text("ADD")
     }
   })
-    
   
   
 })
