@@ -9,12 +9,13 @@ $(document).ready(function(){
     $.ajax({
       type: 'POST',
       url: `/tracker/${name}`,
-      data: {
+      contentType: 'application/json',
+      data: JSON.stringify({
         description: $('#description').val(),
-        amount: $('#amount').val()
-      },
+        amount: Number($('#amount').val())
+      }),
       success: function(response){
-        console.log(response)
+        console.log(response);
       },
       error: function(err){
         console.log(error)

@@ -13,8 +13,8 @@ const UserSchema = new schema({
   },
   expenses: [
     {
-      description: {type: String},
-      amount: {type: Number}
+      description: String,
+      amount: Number
     }
   ]
 }, {timestamps: true})
