@@ -90,6 +90,7 @@ app.post('/tracker/:name',async (req,res) => {
       const userFind = await User.findOne(
         {name: req.params.name}
       )
+      console.log('Current expenses field : ', userFind.expenses)
       if (!userFind) {
         return res.json({ error: 'User not found.' });
       }
@@ -97,8 +98,9 @@ app.post('/tracker/:name',async (req,res) => {
       // Push the new expense into the expenses array
       userFind.expenses.push(data);
       console.log(userFind)
-      //await userFind.save()
-      return res.json({ message: "Expense saved successfully!", expenses: userFind.expenses });
+      //res.json({ message: "Expense saved successfully!", expenses: userFind.expenses });
+      return userFind.save()
+      //return res.json({ message: "Expense saved successfully!", expenses: userFind.expenses });
     
 
   } catch(error){
