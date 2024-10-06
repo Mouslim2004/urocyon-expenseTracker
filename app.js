@@ -98,8 +98,22 @@ app.post('/tracker',async (req,res) => {
   
 })
 
-app.get('/expense',(req,res) => { 
-  res.render('expense')
+app.get('/expense', async (req,res) => { 
+  const transactions = await User.find()
+   // Calculate total positive and negative amounts
+   const totals = transactions.reduce(
+    (acc, transaction) => {
+      if (transaction.amount > 0) {
+        acc.positiveTotal += transaction.amount;
+      } else if (transaction.amount < 0) {
+        acc.negativeTotal += transaction.amount;
+      }
+      return acc;
+    },
+    { positiveTotal: 0, negativeTotal: 0 }
+  )
+  const overallTotal = totals.positiveTotal + totals.negativeTotal;
+  res.render('expense', {totals, transactions, overallTotal})
 })
 
 const PORT = process.env.PORT || 8080

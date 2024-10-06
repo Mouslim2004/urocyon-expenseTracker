@@ -13,12 +13,15 @@ $(document).ready(function(){
       }),
       success: function(response){
         console.log(response);
+        window.location.reload();
       },
       error: function(err){
         console.log(error)
       }
     })
 
+    $('#description').val("")
+    $('#amount').val("")
   })
     
 
