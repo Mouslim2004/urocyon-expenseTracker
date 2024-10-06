@@ -83,7 +83,7 @@ app.post('/tracker',async (req,res) => {
       amount: Number(req.body.amount)
     }
 
-    if(data.description == "" || isNaN(data.amount) || data.amount <= 0){
+    if(data.description == "" || isNaN(data.amount)){
      return res.json({ error: 'Description and amount are required.' });
     }
 

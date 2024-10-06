@@ -34,5 +34,12 @@ $(document).ready(function(){
     }
   })
   
+  $("svg").on("click", () => {
+    let parentsDiv = $(this).closest('.alert')
+    let strongElement = parentsDiv.find('.expense-description strong')
+    let descriptionText = strongElement.text()
+
+    console.log(descriptionText)
+  })
   
 })
