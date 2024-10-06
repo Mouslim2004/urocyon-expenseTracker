@@ -3,12 +3,9 @@ $(document).ready(function(){
   $("#tracker").submit(function(e){
     e.preventDefault()
 
-    let name = $(".nameid").text()
-    console.log(name)
-
     $.ajax({
       type: 'POST',
-      url: `/tracker/${name}`,
+      url: `/tracker`,
       contentType: 'application/json',
       data: JSON.stringify({
         description: $('#description').val(),

@@ -35,46 +35,46 @@ app.get('/',(req,res) => {
   res.render('onboard')
 })
 
-app.get('/login',(req,res) => {
-  res.render('login')
-})
+// app.get('/login',(req,res) => {
+//   res.render('login')
+// })
 
-app.post('/login', async (req,res) => {
-  try{
-    const user = await User.findOne({email: req.body.email})
-    if(user.password === req.body.password){
-      res.render('expense', {user: user})
-      //res.redirect('/expense')
-      //req.session.userId = user._id; 
-    } else {
-      return res.redirect('/login')
-    }
-  } catch {
-    return res.redirect('/login')
-  }
-})
+// app.post('/login', async (req,res) => {
+//   try{
+//     const user = await User.findOne({email: req.body.email})
+//     if(user.password === req.body.password){
+//       res.render('expense', {user: user})
+//       //res.redirect('/expense')
+//       //req.session.userId = user._id; 
+//     } else {
+//       return res.redirect('/login')
+//     }
+//   } catch {
+//     return res.redirect('/login')
+//   }
+// })
 
-app.post('/signup',async (req,res) => {
-  let data = {
-    name: req.body.name,
-    email: req.body.email,
-    password: req.body.password
-  }
-  if(data.name == "" || data.email == "" || data.password == ""){
-      //req.flash('msg','Please fill the form')
-      res.redirect('/signup')
-  } else {
-     await User.insertMany([data])
-     res.render('login')
-  }
-})
+// app.post('/signup',async (req,res) => {
+//   let data = {
+//     name: req.body.name,
+//     email: req.body.email,
+//     password: req.body.password
+//   }
+//   if(data.name == "" || data.email == "" || data.password == ""){
+//       //req.flash('msg','Please fill the form')
+//       res.redirect('/signup')
+//   } else {
+//      await User.insertMany([data])
+//      res.render('login')
+//   }
+// })
 
-app.get('/signup',(req,res) => {
-  res.render('signup')
-})
+// app.get('/signup',(req,res) => {
+//   res.render('signup')
+// })
 
 
-app.post('/tracker/:name',async (req,res) => {
+app.post('/tracker',async (req,res) => {
   
   console.log('Received data:', req.body);
   try {
@@ -87,20 +87,9 @@ app.post('/tracker/:name',async (req,res) => {
      return res.json({ error: 'Description and amount are required.' });
     }
 
-      const userFind = await User.findOne(
-        {name: req.params.name}
-      )
-      console.log('Current expenses field : ', userFind.expenses)
-      if (!userFind) {
-        return res.json({ error: 'User not found.' });
-      }
-
-      // Push the new expense into the expenses array
-      userFind.expenses.push(data);
-      console.log(userFind)
-      //res.json({ message: "Expense saved successfully!", expenses: userFind.expenses });
-      return userFind.save()
-      //return res.json({ message: "Expense saved successfully!", expenses: userFind.expenses });
+      const expense = await User.insertMany([data])
+      console.log(expense)
+      return res.json({ message: "Expense saved successfully!", data: expense });
     
 
   } catch(error){
@@ -109,7 +98,7 @@ app.post('/tracker/:name',async (req,res) => {
   
 })
 
-app.get('/expense',(req,res) => { // ${req.params.name}
+app.get('/expense',(req,res) => { 
   res.render('expense')
 })
 
