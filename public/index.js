@@ -33,13 +33,28 @@ $(document).ready(function(){
       $("#addForm").text("ADD")
     }
   })
-  
-  $("svg").on("click", () => {
-    let parentsDiv = $(this).closest('.alert')
-    let strongElement = parentsDiv.find('.expense-description strong')
-    let descriptionText = strongElement.text()
 
-    console.log(descriptionText)
-  })
+   // Attach click event handler to the svg element inside .expense-action
+   $('.expense-action svg').click(function() {
+    // Find the closest parent div with class "alert"
+    var alertDiv = $(this).closest('.alert');
+
+    // Find the <strong> element inside the .expense-description within the same parent div
+    var description = alertDiv.find('.expense-description strong').text();
+
+    // Display the strong text in the console or use it as needed
+    console.log("Strong text: " + description);
+
+    $.ajax({
+      type: 'post',
+      url : '/' + description,
+      success: function(response) {
+        console.log('Element deleted successfully');
+        // Reload the page
+        window.location.reload();
+    }
+    })
+
+  });
   
 })

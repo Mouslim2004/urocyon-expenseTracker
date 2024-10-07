@@ -106,14 +106,32 @@ app.get('/expense', async (req,res) => {
       if (transaction.amount > 0) {
         acc.positiveTotal += transaction.amount;
       } else if (transaction.amount < 0) {
-        acc.negativeTotal += transaction.amount;
+        let converse = 0;
+        converse += transaction.amount;
+        acc.negativeTotal += converse * (-1);
       }
       return acc;
     },
     { positiveTotal: 0, negativeTotal: 0 }
   )
-  const overallTotal = totals.positiveTotal + totals.negativeTotal;
+  const overallTotal = totals.positiveTotal + (totals.negativeTotal * (-1));
   res.render('expense', {totals, transactions, overallTotal})
+})
+
+app.post('/:description', async (req,res)=>{
+  try{
+    let destroy = await User.deleteMany({description: req.params.description})
+    if(destroy.deletedCount === 1){
+      console.log(`Successfully deleted one document with the description: ${req.params.description}`);
+    } else {
+      console.log('No document found with that description');
+    }
+    console.log(destroy)
+    res.json(destroy)
+  } catch(error){
+    console.error(error)
+  }
+  
 })
 
 const PORT = process.env.PORT || 8080
