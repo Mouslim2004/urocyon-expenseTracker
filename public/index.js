@@ -58,22 +58,26 @@ $(document).ready(function(){
   });
 
   // Attach an event listener to the search input
-  $('#searchInput').on('keypress', function() {
-    const filter = $(this).val().toLowerCase(); // Get the search query and convert it to lowercase
+  $('#searchInput').on('input', function() {
+    const inputValue = $(this).val().toLowerCase(); // Get the search query and convert it to lowercase
 
     // Loop through all divs with the class 'alert' (each transaction block)
-    $('.alert').each(function() {
+    $('.alert').filter(function() {
       // Get the text of the <strong> element and the amount
       const descriptionText = $(this).find('.expense-description strong').text().toLowerCase();
-      const amountText = $(this).find('.amount-tracker').text().toLowerCase();
+      //const amountText = $(this).find('.amount-tracker').text().toLowerCase();
 
       // Check if the search query matches either the description or the amount
-      if (descriptionText.indexOf(filter) > -1 || amountText.indexOf(filter) > -1) {
-        $(this).show();  // Show the transaction if there's a match
-      } else {
-        $(this).hide();  // Hide the transaction if no match
-      }
+      // if (descriptionText.indexOf(inputValue) > -1) {
+      //   $(this).show();  // Show the transaction if there's a match
+      // } else {
+      //   $(this).hide();  // Hide the transaction if no match
+      // }
+      return $(this).text() === descriptionText
+     
     });
+    
+
   });
   
 })
