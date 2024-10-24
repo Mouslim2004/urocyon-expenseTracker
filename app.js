@@ -83,7 +83,7 @@ app.post('/tracker',async (req,res) => {
       amount: Number(req.body.amount)
     }
 
-    if(data.description == "" || isNaN(data.amount)){
+    if(data.description == "" || isNaN(data.amount) || data.amount == ""){
      return res.json({ error: 'Description and amount are required.' });
     }
 
@@ -134,6 +134,20 @@ app.post('/:description', async (req,res)=>{
   
 })
 
+app.get('/expense/:inputValue', async (req, res) => {
+  try{
+    let search = await User.findOne({description: req.params.inputValue })
+    if(search){
+      res.json(search)
+    } else {
+      res.status(404).json({ message: 'Description not found' });
+    }
+  }catch(error){
+    console.log(error)
+    res.status(500).json({ message: 'Server error' });
+  }
+ 
+})
 const PORT = process.env.PORT || 8080
 
 app.listen(PORT, () => {
