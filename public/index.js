@@ -59,7 +59,7 @@ $(document).ready(function(){
 
   // Attach an event listener to the search input
   $('#searchInput').on('keyup', function(e) {
-    if(e.key === "Enter"){
+    if(e.key === "Enter" && $(this).val() !== ""){
       const inputValue = $(this).val();
       console.log(inputValue);
 
@@ -91,10 +91,6 @@ $(document).ready(function(){
     
     });
 
-    $('#searchInput').on('keyup', function(e) {
-      if(e.key === "Enter" && $(this).val() === ""){
-        $('.expense-list').html('<p>Description not found.</p>');
-      }
-    })
+    
 
 })
