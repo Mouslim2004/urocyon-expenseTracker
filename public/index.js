@@ -87,9 +87,14 @@ $(document).ready(function(){
           $('.expense-list').html('<p>Description not found.</p>');
       }
       })
-    }
+    } 
     
     });
 
-  
+    $('#searchInput').on('keyup', function(e) {
+      if(e.key === "Enter" && $(this).val() === ""){
+        $('.expense-list').html('<p>Description not found.</p>');
+      }
+    })
+
 })
