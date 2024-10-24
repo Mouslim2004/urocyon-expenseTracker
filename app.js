@@ -15,7 +15,7 @@ db.once('open', () => {
   console.log('Database connected successfully!')
 })
 
-const User = require('./model/User')
+const Expense = require('./model/User')
 
 app.set('view engine', 'ejs')
 
@@ -87,7 +87,7 @@ app.post('/tracker',async (req,res) => {
      return res.json({ error: 'Description and amount are required.' });
     }
 
-      const expense = await User.insertMany([data])
+      const expense = await Expense.insertMany([data])
       console.log(expense)
       return res.json({ message: "Expense saved successfully!", data: expense });
     
@@ -99,7 +99,7 @@ app.post('/tracker',async (req,res) => {
 })
 
 app.get('/expense', async (req,res) => { 
-  const transactions = await User.find()
+  const transactions = await Expense.find()
    // Calculate total positive and negative amounts
    const totals = transactions.reduce(
     (acc, transaction) => {
@@ -120,7 +120,7 @@ app.get('/expense', async (req,res) => {
 
 app.post('/:description', async (req,res)=>{
   try{
-    let destroy = await User.deleteMany({description: req.params.description})
+    let destroy = await Expense.deleteMany({description: req.params.description})
     if(destroy.deletedCount === 1){
       console.log(`Successfully deleted one document with the description: ${req.params.description}`);
     } else {
@@ -136,7 +136,7 @@ app.post('/:description', async (req,res)=>{
 
 app.get('/expense/:inputValue', async (req, res) => {
   try{
-    let search = await User.findOne({description: req.params.inputValue })
+    let search = await Expense.findOne({description: req.params.inputValue })
     if(search){
       res.json(search)
     } else {

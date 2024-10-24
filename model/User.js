@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const schema = mongoose.Schema
 
-const UserSchema = new schema({
+const ExpenseSchema = new schema({
   description: {
     type: String
   },
@@ -10,5 +10,5 @@ const UserSchema = new schema({
   }
 }, {timestamps: true})
 
-const User = mongoose.model('User', UserSchema)
-module.exports = User
+const Expense = mongoose.model('User', ExpenseSchema)
+module.exports = Expense
