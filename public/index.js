@@ -68,7 +68,7 @@ $(document).ready(function(){
         url: '/expense/' + inputValue,
         success: function(response){
           console.log('Element caught successfully!')
-
+          
           $('.expense-list').html(`
           <div class="alert alert-white border d-flex justify-content-between">
           
