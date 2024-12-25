@@ -58,12 +58,11 @@
             </div>
         </div>
      </div>
-     <div class="expense-list d-flex flex-column mb-5 mt-3">
+     <div class="expense-list d-flex flex-column mb-5 mt-3 wrapper" id="wrapper">
       <% if(typeof transactions !== 'undefined' && transactions.length > 0){ %>
         <% for(let i = 0 ; i < transactions.length; i++){ %>
-        <div class="alert alert-white border d-flex justify-content-between">
-          
-            <div class="expense-description"><strong><%= transactions[i].description %></strong></div>
+        <div class="alert alert-white border d-flex justify-content-between content-track" id="content-track">
+            <div class="expense-description"><%= transactions[i].description %></div>
             <div class="amount-tracker"><%= transactions[i].amount %></div>
             <div class="expense-action">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">

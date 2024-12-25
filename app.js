@@ -134,21 +134,21 @@ app.post('/:description', async (req,res)=>{
   
 })
 
-app.get('/expense/:inputValue', async (req, res) => {
-  try{
-    let search = await Expense.findOne({description: req.params.inputValue })
-    if(search){
-      res.json(search)
-    } else {
-      res.status(404).json({ message: 'Description not found' });
-    }
-  }catch(error){
-    console.log(error)
-    res.status(500).json({ message: 'Server error' });
-  }
+// app.get('/expense/:inputValue', async (req, res) => {
+//   try{
+//     let search = await Expense.findOne({description: req.params.inputValue })
+//     if(search){
+//       res.json(search)
+//     } else {
+//       res.status(404).json({ message: 'Description not found' });
+//     }
+//   }catch(error){
+//     console.log(error)
+//     res.status(500).json({ message: 'Server error' });
+//   }
  
-})
-const PORT = process.env.PORT || 8080
+// })
+const PORT = process.env.PORT || 5173
 
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`)
