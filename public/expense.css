@@ -24,6 +24,7 @@ body{
 .balance-form{
   display: flex;
   justify-content: space-between;
+  align-items:center;
   padding: 10px;
 }
 .modal{
@@ -31,12 +32,12 @@ body{
   flex-direction: column;
   justify-content: center;
   gap: 1rem;/*it's like line height*/
-  width: 450px;
+  width: 500px;
   padding: 1rem;
   min-height: 250px;
   position: absolute;
-  top: 2%;
-  left: 30%;
+  top: 25%;
+  left: 33%;
   background-color: white;
   border: 1px solid #ddd;
   border-radius: 15px;
@@ -126,4 +127,30 @@ body{
   width: 200px;
   padding: 20px;
   border-radius: 20px;
+}
+.transaction-search input{
+  padding: 10px;
+  width: 95%;
+  border-radius: 20px;
+  border: 1px solid lightgray;
+  outline: none;
+  margin: 10px 0;
+}
+.expense-list{
+  display: flex;
+  flex-direction: column;
+}
+.alert{
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid black;
+  padding: 10px 10px;
+  margin: 7px 0;
+  border-radius: 20px;
+}
+.btn-std{
+  padding: 8px 15px;
+  border-radius: 20px;
+  border: 1px solid lightgray;
+  cursor: pointer;
 }
