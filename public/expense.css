@@ -154,3 +154,6 @@ body{
   border: 1px solid lightgray;
   cursor: pointer;
 }
+.expense-action svg{
+  cursor: pointer;
+}
