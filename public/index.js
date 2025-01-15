@@ -61,7 +61,7 @@ $(document).ready(function(){
     var alertDiv = $(this).closest('.alert');
 
     // Find the <strong> element inside the .expense-description within the same parent div
-    var description = alertDiv.find('.expense-description strong').text();
+    var description = alertDiv.find('.expense-description').text();
 
     // Display the strong text in the console or use it as needed
     console.log("Strong text: " + description);
